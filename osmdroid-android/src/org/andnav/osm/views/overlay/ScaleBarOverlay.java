@@ -42,6 +42,7 @@ import org.andnav.osm.views.OpenStreetMapView;
 import org.andnav.osm.views.OpenStreetMapView.OpenStreetMapViewProjection;
 import org.andnav.osm.views.overlay.OpenStreetMapViewOverlay;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -75,13 +76,15 @@ public class ScaleBarOverlay extends OpenStreetMapViewOverlay implements GeoCons
 		
 	// Internal
 	
-	private Context context;
+	private Activity activity;
 	
 	protected final Picture scaleBarPicture = new Picture();
 	private final Matrix scaleBarMatrix = new Matrix();
 	
-	private int lastZoomLevel = -1;
-	private float lastLatitude = 0;
+	private int lapublic float xdpi;
+	public float ydpi;
+	public int screenWidth;
+	public e = 0;
 
 	float xdpi;
 	float ydpi;
@@ -98,13 +101,14 @@ public class ScaleBarOverlay extends OpenStreetMapViewOverlay implements GeoCons
 		this(ctx, new DefaultResourceProxyImpl(ctx));
 	}
 
-	public ScaleBarOverlay(final Context ctx, final ResourceProxy pResourceProxy) {
+	public Activity activity) {
+		this(activity, new DefaultResourceProxyImpl(activity));
+	}
+
+	public ScaleBarOverlay(final Activity activity, final ResourceProxy pResourceProxy) {
 		super(pResourceProxy);
 		this.resourceProxy = pResourceProxy;
-		this.context = ctx;
-
-		xdpi = this.context.getResources().getDisplayMetrics().xdpi;
-		ydpi = this.context.getResources().getDisplayMetrics().ydpi;
+		this.activity = activitythis.context.getResources().getDisplayMetrics().ydpi;
 		
 		screenWidth = this.context.getResources().getDisplayMetrics().widthPixels;
 		screenHeight = this.context.getResources().getDisplayMetrics().heightPixels;
@@ -115,31 +119,39 @@ public class ScaleBarOverlay extends OpenStreetMapViewOverlay implements GeoCons
 	// ===========================================================
 
 	public void setMinZoom(int zoom) {
-		this.minZoom = zoom;
-	}
-	
-	public void setScaleBarOffset(float x, float y) {
-		xOffset = x;
-		yOffset = y;
-	}
-	
-	public void setLineWidth(float width) {
-		this.lineWidth = width;
+		this.minZoom = zooactivity.getResources().getDisplayMetrics().xdpi;
+		this.ydpi = this.activity.getResources().getDisplayMetrics().ydpi;
+		
+		this.screenWidth = this.activity width;
 	}
 	
 	public void setTextSize(int size) {
 		this.textSize = size;
+	}activity.getResources().getDisplayMetrics().heightPixels;
+		
+		// DPI corrections for specific models
+		if (android.os.Build.MANUFACTURER.equals("motorola") && android.os.Build.MODEL.equals("DROIDX")) {
+
+			// If the screen is rotated, flip the x and y dpi values
+			if (activity.getWindowManager().getDefaultDisplay().getOrientation() > 0) {
+				this.xdpi = (float)(this.screenWidth/3.75);
+				this.ydpi = (float)(this.screenHeight/2.1);				
+			} else {
+				this.xdpi = (float)(this.screenWidth/2.1);
+				this.ydpi = (float)(this.screenHeight/3.75);
+			}
+			
+		} else if (android.os.Build.MANUFACTURER.equals("motorola") && android.os.Build.MODEL.equals("Droid")) {
+			// http://www.mail-archive.com/android-developers@googlegroups.com/msg109497.html
+			this.xdpi = 264;
+			this.ydpi = 264;
+		}
+				
 	}
 
-	public void setImperial() {
-		this.imperial = true;
-		this.nautical = false;
-		lastZoomLevel = -1; // Force redraw of scalebar
-	}
-
-	public void setNautical() {
-		this.nautical = true;
-		this.imperial = false;
+	// ===========================================================
+	// Getter & Setterew) {
+		// We want the scale bar to be as long as the closest roue;
 		lastZoomLevel = -1; // Force redraw of scalebar
 	}
 	
@@ -184,7 +196,11 @@ public class ScaleBarOverlay extends OpenStreetMapViewOverlay implements GeoCons
 			if (zoomLevel != lastZoomLevel || (int)(center.getLatitudeE6()/1E6) != (int)(lastLatitude/1E6)) {
 				lastZoomLevel = zoomLevel;
 				lastLatitude = center.getLatitudeE6();
-				createScaleBarPicture(mapView);
+				createScaleBarPi
+		// If map view is animating, don't update, scale will be wrong.
+		if (mapView.isAnimating())
+			return;
+		icture(mapView);
 			}
 
 			this.scaleBarMatrix.setTranslate(-1 * (scaleBarPicture.getWidth() / 2 - 0.5f), -1 * (scaleBarPicture.getHeight() / 2 - 0.5f));
@@ -321,17 +337,4 @@ public class ScaleBarOverlay extends OpenStreetMapViewOverlay implements GeoCons
 			if (meters >= 1000) {
 				return resourceProxy.getString(
 						ResourceProxy.string.format_distance_kilometers,
-						(int)(meters/1000));
-			} else if (meters > 100) {
-				return resourceProxy.getString(
-						ResourceProxy.string.format_distance_kilometers,
-						(int)(meters / 100.0) / 10.0);
-			} else {
-				return resourceProxy.getString(
-						ResourceProxy.string.format_distance_meters,
-						(int)meters);
-			}
-		}
-	}
-
-}
+						(int)(meters/10
