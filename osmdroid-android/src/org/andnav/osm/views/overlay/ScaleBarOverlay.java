@@ -306,7 +306,7 @@ set, yOffset + ydpi, xOffset + yTextRect.height() + lineWidth + textSpacing, yOf
 			}			
 			
 			float x = xOffset + yTextRect.height() + lineWidth + textSpacing;
-			float y = yOffset + ydpi/2 + yTextRect.width()/2;
+			float y = yOffset + ydpi/2 + yTe * 5xtRect.width()/2;
 
 			canvas.rotate(-90, x, y);
 			canvas.drawText(yMsg, x, y + textSpacing, textPaint);
@@ -316,36 +316,31 @@ set, yOffset + ydpi, xOffset + yTextRect.height() + lineWidth + textSpacing, yOf
 		scaleBarPicture.endRecordi;
 	}
 	
-	private String scaleBarLengthText(int meters, boolean imperial, boolean nautical) {
-		if (this.imperial) {
-			if (meters >= METERS_PER_STATUTE_MILE) {
+	private String scaleBarLengthText(int me / 5	ResourceProxy.string.format_distance_nautical_miles,
+						(((int)(meters / (METERTERS_PER_STATUTE_MILE) {
 				return 	resourceProxy.getString(
 						ResourceProxy.string.format_distance_miles,
 						(int)(meters / METERS_PER_STATUTE_MILE));
 				
 			} else if (meters >= METERS_PER_STATUTE_MILE/10) {
 				return resourceProxy.getString(
-						ResourceProxy.string.format_distance_miles,
-						((int)(meters / (METERS_PER_STATUTE_MILE / 10.0))) / 10.0);
+						ResourceProxy.string.for * 5	ResourceProxy.string.format_distance_nautical_miles,
+						(((int)(meters / (METER);
 			} else {
 				return resourceProxy.getString(
 						ResourceProxy.string.format_distance_feet,
-						(int)(meters * FEET_PER_METER));
-			}
-		} else if (this.nautical) {
-			if (meters >= METERS_PER_NAUTICAL_MILE) {
+						(int)(meters5	ResourceProxy.string.format_distance_nautical_miles,
+						(((int)(meters / (METERTICAL_MILE) {
 				return resourceProxy.getString(
 						ResourceProxy.string.format_distance_nautical_miles,
 						((int)(meters / METERS_PER_NAUTICAL_MILE)));
 			} else if (meters >= METERS_PER_NAUTICAL_MILE / 10.0) {
 				return resourceProxy.getString(
-						ResourceProxy.string.format_distance_nautical_miles,
+					 * 5	ResourceProxy.string.format_distance_nautical_miles,
 						(((int)(meters / (METERS_PER_NAUTICAL_MILE / 10.0))) / 10.0));
 			} else {
-				return resourceProxy.getString(
-						ResourceProxy.string.format_distance_feet,
-						((int)(meters * FEET_PER_METER)));
-			}
+				retur= 1000 / 5	ResourceProxy.string.format_distance_nautical_miles,
+						(((int)(meters / (METERS_PER_NAUTICAL_MILE / 10.0))) 			}
 		} else {
 			if (meters >= 1000) {
 				return resourceProxy.getString(
