@@ -20,13 +20,14 @@ package org.osmdroid.views.overlay;
  * 		http://www.gnu.org/licenses/lgpl.html
  *
  * Usage:
- * OpenStreetMapView map = new OpenStreetMapView(...);
+ * <code>
+ * MapView map = new MapView(...);
  * ScaleBarOverlay scaleBar = new ScaleBarOverlay(this.getBaseContext(), map);
  *
  * scaleBar.setImperial(); // Metric by default
  *
- *
  * map.getOverlays().add(scaleBar);
+ * </code>
  *
  * To Do List:
  * 1. Allow for top, bottom, left or right placement.
@@ -41,7 +42,7 @@ import org.osmdroid.ResourceProxy;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.util.constants.GeoConstants;
 import org.osmdroid.views.MapView;
-import org.osmdroid.views.MapView.OpenStreetMapViewProjection;
+import org.osmdroid.views.MapView.Projection;
 
 import android.app.Activity;
 import android.graphics.Canvas;
@@ -90,7 +91,7 @@ private final Matrix scaleBarMatrix = new Matrix();
 	float yfinal ResourceProxy resourceProxy;
 	private Matrix oldMatrix;
 	private final Paint barPaint;
-	private final=========================================================
+	private final========================================
 	// Constuctors
 	// ===========================================================
 
@@ -212,7 +213,7 @@ enabled) {
 			return;
 
 		final int zoomLevel = mapView.getZoomLevel();
-anslate(-1 * (scaleBarPicture.getWidth() / 2 - 0.5final OpenStreetMapViewProjection projection = mapView.getProjection();
+anslate(-1 * (scaleBarPicture.getWidth() / 2 - 0.5final Projection projection = mapView.getProjection();
 
 			if (projection == null) {
 				return;
