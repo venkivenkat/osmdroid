@@ -40,8 +40,8 @@ import org.osmdroid.DefaultResourceProxyImpl;
 import org.osmdroid.ResourceProxy;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.util.constants.GeoConstants;
-import org.osmdroid.views.OpenStreetMapView;
-import org.osmdroid.views.OpenStreetMapView.OpenStreetMapViewProjection;
+import org.osmdroid.views.MapView;
+import org.osmdroid.views.MapView.OpenStreetMapViewProjection;
 
 import android.app.Activity;
 import android.graphics.Canvas;
@@ -202,10 +202,11 @@ enabled) {
 			
 			GeoPoint center = projection.fromPixels((screenWidth / 2), screenHeight/2);
 
-			if (zoomLevel != lastZoomLevel || (int)(center.getLatitudeE6()/1E6) != (final Canvas c, final OpenStreetMapView osmv) {
-	oomLevel = zoomLevel;
-				lastLatitude = center.getLatitudeE6();
-				createScaleBarPi
+			if (zoomLevel != lastZoomLevel || (int)(center.getLatitudeE6()/1E6) != (final Canvas c, final MapView osmv) {
+	}
+
+	@Override
+	public void onDraw(final Canvas c, final 			createScaleBarPi
 		// If map view is animating, don't update, scale will be wrong.
 		if (mapView.isAnimating())
 			return;
@@ -244,7 +245,7 @@ anslate(-1 * (scaleBarPicture.getWidth() / 2 - 0.5final OpenStreetMapViewProject
 			reurn;
 		}
 		
-		// Two points, 1-inch apart in x/latitude, centered on screen
+		// Two points, 1-inch apart ide, centered on screen
 		GeoPoint p1 = projection.fromPixels((screenWidth / 2) - (xdpi / 2), screenHeight/2);
 		GeoPoint p2 = projection.fromPixels((screenWidth / 2) + (xdpi
 		projection = mapView.getProjection();
