@@ -76,7 +76,7 @@ public class ScaleBarOverlay extends OpenStreetMapViewOverlay implements GeoCons
 
 	// Internal
 
-	private Activity activity;
+	private final Activity activity;
 
 	protected final Picture scaleBarPicture = new Picture();
 private final Matrix scaleBarMatrix = new Matrix();
@@ -87,13 +87,10 @@ private final Matrix scaleBarMatrix = new Matrix();
 	public e = 0;
 
 	float xdp;
-	float ydpi;
-	int screenWidth;
-	int screenHeight;
-	
-	private ResourceProxy resourceProxy;
-
-	// ===========================================================
+	float yfinal ResourceProxy resourceProxy;
+	private Matrix oldMatrix;
+	private final Paint barPaint;
+	private final=========================================================
 	// Constuctors
 	// ===========================================================
 
@@ -119,7 +116,7 @@ private final Matrix scaleBarMatrix = new Matrix();
 	// ===========================================================
 
 	public void setMinZoom(int zoom) {
-		this.minZoom = zooactivity.getResources().getDisplayMetrics().xdpi;
+	this.minZoom = zooactivity.getResources().getDisplayMetrics().xdpi;
 		this.ydpi = this.activity.getResources().getDisplayMetrics().ydpi;
 
 		this.screenWidth = this.activity width;
@@ -134,18 +131,18 @@ private final Matrix scaleBarMatrix = new Matrix();
 		try {
 			final Field field = android.os.Build.class.getField("MANUFACTURER");
 			manufacturer = (String) field.get(null);
+		} catch (final Exception ignore) {
 		}
-		catch(final Exception ignore) { }
 
 		if ("motorola".equals(manufacturer) && "DROIDX".equals(android.os.Build.MODEL)) {
 
 			// If the screen is rotated, flip the x and y dpi values
 			if (activity.getWindowManager().getDefaultDisplay().getOrientation() > 0) {
-				this.xdpi = (float)(this.screenWidth/3.75);
-				this.ydpi = (float)(this.screenHeight/2.1);
+				this.xdpi = (float) (this.screenWidth / 3.75);
+				this.ydpi = (float) (this.screenHeight / 2.1);
 			} else {
-				this.xdpi = (float)(this.screenWidth/2.1);
-				this.ydpi = (float)(this.screenHeight/3.75);
+				this.xdpi = (float) (this.screenWidth / 2.1);
+				this.ydpi = (float) (this.screenHeight / 3.75);
 			}
 
 		} else if ("motorola".equals(manufacturer) && "Droid".equals(android.os.Build.MODEL)) {
@@ -159,20 +156,20 @@ private final Matrix scaleBarMatrix = new Matrix();
 	// ===========================================================
 	// Getter & Setterew) {
 		// We want the scale bar to be as long as the closest roue;
-		lastZoomLevel = -1; // Force redraw of scalebar
+		lastZoomLevel = -1; final int zoom) {
+		this.minZoom = zoom;
 	}
-	
-	publ
-	public void setScaleBarOffset(float x, float y) {
+
+	public void setScaleBarOffset(final float x, final float y) {
 		xOffset = x;
 		yOffset = y;
 	}
 
-	public void setLineWidth(float width) {
+	public void setLineWidth(final float width) {
 		this.lineWidth = width;
 	}
 enabled) {
-		this.enabled = enabled;
+		this.enabled final = enabled;
 	}
 	
 	public void drawLatitudeScale(boolean latitude) {
@@ -189,15 +186,15 @@ enabled) {
 
 	@Override
 	protected void onDrawFinished(Canvas c, OpenStreetMapView osm
-	public void setEnabled(boolean enabled) {
+	public void setEnabled(final boolean enabled) {
 		this.enabled = enabled;
 	}
 
-	public void drawLatitudeScale(boolean latitude) {
+	public void drawLatitudeScale(final boolean latitude) {
 		this.latitudeBar = latitude;
 	}
-zoomLevel >= minZoom) {
-			OpenStreetMapViewProjection projection = mapView.getProjection(;
+
+	public void drawLongitudeScale(final reetMapViewProjection projection = mapView.getProjection(;
 			
 			if (projection == null) {
 				return;
@@ -205,8 +202,8 @@ zoomLevel >= minZoom) {
 			
 			GeoPoint center = projection.fromPixels((screenWidth / 2), screenHeight/2);
 
-			if (zoomLevel != lastZoomLevel || (int)(center.getLatitudeE6()/1E6) != (int)(lastLatitude/1E6)) {
-				lastZoomLevel = zoomLevel;
+			if (zoomLevel != lastZoomLevel || (int)(center.getLatitudeE6()/1E6) != (final Canvas c, final OpenStreetMapView osmv) {
+	oomLevel = zoomLevel;
 				lastLatitude = center.getLatitudeE6();
 				createScaleBarPi
 		// If map view is animating, don't update, scale will be wrong.
@@ -214,17 +211,18 @@ zoomLevel >= minZoom) {
 			return;
 
 		final int zoomLevel = mapView.getZoomLevel();
-anslate(-1 * (scaleBarPicture.getWidth() / 2 - 0.5f), -1 * (scaleBarPicture.getHeight() / 2 - 0.5f));
-			this.scaleBatrix.postTranslate(xdpi/2, ydpi/2 + (c.getHeight() - mapView.getHeight()));
+anslate(-1 * (scaleBarPicture.getWidth() / 2 - 0.5final OpenStreetMapViewProjection projection = mapView.getProjection();
+
+			if (projection == null) {
+				return;
+			}
+
+			final  - mapView.getHeight()));
 
 			c.save();
-			c.setMatrix(scaleBarMatrix);
-			c.drawPicture(scaleBarPicture);
-			c.restore();
-		}
-	}
-
-	// ===========================================================
+			c.setMatrix(scaleBarMatrix); / 2);
+			if (zoomLevel != lastZoomLevel
+					|| (int) (center.getLatitudeE6() / 1E6) != (int) (lastLatitude / =========================
 	// Methods
 	// ===========================================================
 
@@ -257,92 +255,93 @@ anslate(-1 * (scaleBarPicture.getWidth() / 2 - 0.5f), -1 * (scaleBarPicture.getH
 xels(screenWidth/2, (screenHeight / 2) - (ydpi / 2));
 		p2 = projection.fromPixels(screenWidth/2, (screenHeight / 2) + (ydpi / 2));
 
-		int yMetersPerInch = p1.distanceTo(p2);
+		int yMetersP / 2);
+		GeoPoint p2 = projection.fromPixels((screenWidth / 2) + (xdpi / 2), screenHeight / 2);
 
-		final Paint barPaint = new Paint();
-		barPaint.setColor(Color.BLACK);
-		barPaint.setAntiAlias(true);
-		barPaint.setStyle(Style.FILL);
-		barPaint.setAlpha(255);
-			
-		final Paint textPaint = new Paint();
-		textPaint.setColor(Color.BLACK);
-		textPaint.setAntiAlias(true);
-		textPaint.setStyle(Style.FILL);
-		textPaint.setAlpha(255);
-		textPaint.setTextSize(textSize);
+		final int xMetersPerInch = p1.distanceTo(p2);
 
-		final Canvas cs = scaleBarPicture.beginRecording((int)xdpi, (int)ydpi);
+		p1 = projection.fromPixels(screenWidth / 2, (screenHeight / 2) - (ydpi / 2));
+		p2 = projection.fromPixels(screenWidth / 2, (screenHeight / 2) + (ydpi / 2));
+
+		final int yMetersPerInch = p1.distanceTo(p2);
+
+		final Canvas canvas = scaleBarPicture.beginRecording((int) xdpi, (int) ydpi);
 
 		if (latitudeBar) {
-			String xMsg = scaleBarLengthText(xMetersPerInch, imperial, nautical);
+			final String xMsg = scaleBarLengthText(xMetersPerInch, imperial, nautical);
+			final caleBarLengthText(xMetersPerInch, imperial, nautical);
 			Rect xTextRect = new Rect();
-			textPaint.getTextBounds(xMsg, 0, xMsg.length(), xTextRect
-			int textSpacing = (int)(xTextRect.height() / 5.0);
-			
-			canvas.drawRect(xOffset, yOffset, xOffset + xdpi, yOffset + lineWidth, barPaint);
-			canvas.dract(xOffset + xdpi, yOffset, xOffset + xdpi + lineWidth, yOffset + xTextRect.height() + lineWidth + textSpacing, barPaint);
-			
-			if (! longitudeBar) {
-				canvas.drawRect(xOffset, yOffset, xOffset + lineWidth, yOffset + xTextRect.height() + leWidth + textSpacing, barPaint);
+			textPafinal int textSpacing = (int) (xTextRect.height() / 5.0);
+
+			canvas.drawRect(0, 0, xdpi, lineWidth, barPaint);
+			canvas.drawRect(xdpi, 0, xdpi + lineWidth,
+					xTextRect.height() + lineWidth + textSpacing, barPaint);
+
+			if (! + xdpi, yOffset, xOffset + xdpi + lineWidth, yOffset + xTextRect.height() + lineWidth + textSpaci
+						barPaint);
 			}
 
-			canvas.drawText(xMsg, xOffset + xdpi/2 - xTextRect.width()/2, yOffset + xTextRect.height() + lineWidth + textSpacing, textPaint);
+			canvas.drawText(xMsg, xdpi / 2 - xTextRect.width() / 2, xTextRect.height() + lineWidth
+					+ textSpacing, textPaint);
+		}
+
+		if (longitudeBar) {
+			final String yMsg = scaleBarLengthText(yMetersPerInch, imperial, nautical);
+			final )/2, yOffset + xTextRect.height() + lineWidth + textSpacing, textPaint);
 		}
 		
-		if (longitudeBar) {
-			String yMsg = scaleBarLengthText(yMetersPerInch, imperial, nautical);
+		if (longitudeBfinal int textSpacing = (int) scaleBarLengthText(yMetersPerInch, imperial, nautical);
 			Rect yTextRect = new Rect();
 			textPaint.getTextBounds(yMsg, 0, yMsg.length(), yTextRect);
 
-			int textSpacing = (int)(yTextRect.height() / 5.0);
+			
+					ydpi + lineWidth, barPaint);
+
+			if (!() / 5.0);
 
 			canvas.drawRect(xOffset, yOffset, xOffset + lineWidth, yOffset + ydpi, barPaint);
-			canvas.drawRe
-set, yOffset + ydpi, xOffset + yTextRect.height() + lineWidth + textSpacing, yOffset + ydpi + lineWidth, barPaint);
+
+						barPaint);
+			}
+
+			final float x = yTextRect.height() + lineWidth + textSpacing;
+			final float y = ydpi / 2 + yTextRect.width() / dth, barPaint);
 
 			if (! latitudeBar) {
 				canvas.drawRect(xOffset, yOffset, xOffset + yTextRect.height() + lineWidth + textSpacing yOffset + lineWidth, barPaint);
-			}			
-			
-			float x = xOffset + yTextRect.height() + lineWidth + textSpacing;
-			float y = yOffset + ydpi/2 + yTe * 5xtRect.width()/2;
-
-			canvas.rotate(-90, x, y);
-			canvas.drawText(yMsg, x, y + textSpacing, textPaint);
+			final int meters, final boolean imperial,
+			final boolean nautical) {
+		if (this.imperial) {
+			if (meters >= METERS_PER_STATUTE_MILE * 5) {
+				return resourceProxy.getString(ResourceProxy.string.format_distance_miles,
+						(int) );
 
 		}
 
 		scaleBarPicture.endRecordi;
 	}
 	
-	private String scaleBarLengthText(int me / 5	ResourceProxy.string.format_distance_nautical_miles,
-						(((int)(meters / (METERTERS_PER_STATUTE_MILE) {
+	private String scaleBarLengthText(int me / 5	ResourceProxy.string.format_distance_nResourceProxy.string.format_distance_miles,
+						((int) LE) {
 				return 	resourceProxy.getString(
 						ResourceProxy.string.format_distance_miles,
-						(int)(meters / METERS_PER_STATUTE_MILE));
-				
-			} else if (meters >= METERS_PER_STATUTE_MILE/10) {
+						(iResourceProxy.string.format_distance_feet,
+						(int) ters >= METERS_PER_STATUTE_MILE/10) {
 				return resourceProxy.getString(
-						ResourceProxy.string.for * 5	ResourceProxy.string.format_distance_nautical_miles,
-						(((int)(meters / (METER);
-			} else {
-				return resourceProxy.getString(
+						ResourceProxy.string.for * 5	ResourceProxy.string.format_distance_nResourceProxy.string.format_distance_nautical_miles,
+						((int) sourceProxy.getString(
 						ResourceProxy.string.format_distance_feet,
-						(int)(meters5	ResourceProxy.string.format_distance_nautical_miles,
-						(((int)(meters / (METERTICAL_MILE) {
-				return resourceProxy.getString(
-						ResourceProxy.string.format_distance_nautical_miles,
-						((int)(meters / METERS_PER_NAUTICAL_MILE)));
-			} else if (meters >= METERS_PER_NAUTICAL_MILE / 10.0) {
-				return resourceProxy.getString(
-					 * 5	ResourceProxy.string.format_distance_nautical_miles,
-						(((int)(meters / (METERS_PER_NAUTICAL_MILE / 10.0))) / 10.0));
+						(int)(meters5	ResourceProxy.string.format_distance_nResourceProxy.string.format_distance_nautical_miles,
+						(((int) (meters / (METERS_PER_NAUTICAL_MILE / 10.0))) / 10.0));
 			} else {
-				retur= 1000 / 5	ResourceProxy.string.format_distance_nautical_miles,
-						(((int)(meters / (METERS_PER_NAUTICAL_MILE / 10.0))) 			}
-		} else {
-			if (meters >= 1000) {
+				return resourceProxy.getString(ResourceProxy.string.format_distance_feet,
+						((int) _NAUTICAL_MILE / 10.0) {
 				return resourceProxy.getString(
-						ResourceProxy.string.format_distance_kilometers,
+					 * 5	ResourceProxy.string.format_distance_nResourceProxy.string.format_distance_kilometers,
+						(meters / 1000));
+			} else if (meters >= 1000 / 5) {
+				return resourceProxy.getString(ResourceProxy.string.format_distance_kilometers,
+						(int) (meters / 100.0) / 10.0);
+			} else {
+				return resourceProxy.getString(ResourceProxy.string.format_distance_meters, s,
 						(int)(meters/10
