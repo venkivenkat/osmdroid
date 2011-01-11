@@ -187,10 +187,6 @@ enabled) {
 
 	@Override
 	protected void onDrawFinished(Canvas c, OpenStreetMapView osm
-	public void setEnabled(final boolean enabled) {
-		this.enabled = enabled;
-	}
-
 	public void drawLatitudeScale(final boolean latitude) {
 		this.latitudeBar = latitude;
 	}
@@ -203,14 +199,17 @@ enabled) {
 			
 			GeoPoint center = projection.fromPixels((screenWidth / 2), screenHeight/2);
 
-			if (zoomLevel != lastZoomLevel || (int)(center.getLatitudeE6()/1E6) != (final Canvas c, final MapView osmv) {
+			if (zoomLevel != lastZoomLevel || (int)(cenublic void setEnabled(final boolean enabled) {
+		this.enabled = enabled;
+	}el || (int)(center.getLatitudeE6()/1E6) != (final Canvas c, final MapView osmv) {
 	}
 
 	@Override
 	public void onDraw(final Canvas c, final 			createScaleBarPi
 		// If map view is animating, don't update, scale will be wrong.
-		if (mapView.isAnimating())
+		if (mapView.isAnimating()) {
 			return;
+		}
 
 		final int zoomLevel = mapView.getZoomLevel();
 anslate(-1 * (scaleBarPicture.getWidth() / 2 - 0.5final Projection projection = mapView.getProjection();
