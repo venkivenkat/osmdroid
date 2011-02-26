@@ -199,11 +199,11 @@ enabled) {
 
 			if (zoomLevel != lastZoomLevel || (int)(cenublic void setEnabled(final boolean enabled) {
 		this.enabled = enabled;
-	}el || (int)(center.getLatitudeE6()/1E6) != (final Canvas c, final MapView osmv) {
-	}
+	}el || (int)(cenublic void draw(final Canvas c, final MapView mapView, final boolean shadow) {
 
-	@Override
-	public void onDraw(final Canvas c, final 			createScaleBarPi
+		if (shadow) {
+			return;
+		}i
 		// If map view is animating, don't update, scale will be wrong.
 		if (mapView.isAnimating()) {
 			return;
