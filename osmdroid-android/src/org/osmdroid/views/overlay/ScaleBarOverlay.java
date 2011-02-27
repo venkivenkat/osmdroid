@@ -61,8 +61,6 @@ public class ScaleBarOverlay extends Overlay implements GeoConstants {
 
 	// Defaults
 
-	boolean enabled = true;
-
 	float xOffset = 10;
 	float yOffset = 10;
 	float lineWidth = 2;
@@ -90,8 +88,8 @@ private final Matrix scaleBarMatrix = new Matrix();
 	float xdp;
 	float yfinal ResourceProxy resourceProxy;
 	private Matrix oldMatrix;
-	private final Paint barPaint;
-	private final========================================
+	private Paint barPaint;
+	private========================================
 	// Constuctors
 	// ===========================================================
 
@@ -190,6 +188,20 @@ enabled) {
 	}
 
 	public void drawLongitudeScale(final reetMapViewProjection projection = mapView.getProjection(;
+public Paint getBarPaint() {
+		return barPaint;
+	}
+
+	public void setBarPaint(Paint pBarPaint) {
+		barPaint = pBarPaint;
+	}
+
+	public Paint getTextPaint() {
+		return textPaint;
+	}
+
+	public void setTextPaint(Paint pTextPaint) {
+		textPaint = pTextPainttion(;
 			
 			if (projection == null) {
 				return;
@@ -197,9 +209,7 @@ enabled) {
 			
 			GeoPoint center = projection.fromPixels((screenWidth / 2), screenHeight/2);
 
-			if (zoomLevel != lastZoomLevel || (int)(cenublic void setEnabled(final boolean enabled) {
-		this.enabled = enabled;
-	}el || (int)(cenublic void draw(final Canvas c, final MapView mapView, final boolean shadow) {
+			if (zoomLevel != lastZoomLevel || (int)(cenublic void draw(final Canvas c, final MapView mapView, final boolean shadow) {
 
 		if (shadow) {
 			return;
@@ -210,7 +220,7 @@ enabled) {
 		}
 
 		final int zoomLevel = mapView.getZoomLevel();
-anslate(-1 * (scaleBarPicture.getWidth() / 2 - 0.5final Projection projection = mapView.getProjection();
+anslateicture.getWidth() / 2 - 0.5final Projection projection = mapView.getProjection();
 
 			if (projection == null) {
 				return;
@@ -237,10 +247,11 @@ anslate(-1 * (scaleBarPicture.getWidth() / 2 - 0.5final Projection projection = 
 		// We want the scale bar to be as long as the closest round-number miles/kilometers
 		// to 1-inch at the latitude at the current center of the screen.
 				
-		OpenStreetMapViewProjection projection = mapView.getProjection();
-				
-		if (projection == null) {
-			reurn;
+		OpenStreetsetEnabled(false);
+	}
+
+	public void enableScaleBar() {
+		setEnabled(true)			reurn;
 		}
 		
 		// Two points, 1-inch apart ide, centered on screen
