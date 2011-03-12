@@ -47,7 +47,6 @@ import org.osmdroid.views.MapView.Projection;
 import android.app.Activity;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.graphics.Picture;
@@ -87,10 +86,11 @@ private final Matrix scaleBarMatrix = new Matrix();
 
 	float xdp;
 	float yfinal ResourceProxy resourceProxy;
-	private Matrix oldMatrix;
 	private Paint barPaint;
-	private========================================
-	// Constuctors
+	private Paint textPaint;
+	private Projection projection;
+
+	final private Rect mBounds = new Rect()stuctors
 	// ===========================================================
 
 	public ScaleBarOverlay(final Context ctx) {
@@ -239,15 +239,12 @@ anslateicture.getWidth() / 2 - 0.5final Projection projection = mapView.getProje
 	// Methods
 	// ===========================================================
 
-	public void disableleBar() {
-		this.enabled = false;
-	}
+	public void disableleBac.getClipBounds(mBounds);
+			mBounds.offset((int) xOffset, (int) yOffset);
 
-	public boolean enableScaleBar() {
-		return this.enabled = true;
-	}
-	
-	private void createScaleBarPicture(final OpenStreetMapView mapView) {
+			mBounds.set(mBounds.left, mBounds.top, mBounds.left + scaleBarPicture.getWidth(),
+					mBounds.top + scaleBarPicture.getHeight());
+			c.drawPicture(scaleBarPicture, mBoundsView mapView) {
 		// We want the scale bar to be as long as the closest round-number miles/kilometers
 		// to 1-inch at the latitude at the current center of the screen.
 				
