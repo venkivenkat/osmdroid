@@ -239,7 +239,7 @@ anslateicture.getWidth() / 2 - 0.5final Projection projection = mapView.getProje
 	// Methods
 	// ===========================================================
 
-	public void disableleBac.getClipBounds(mBounds);
+	public void disableleBamBounds.set(projection.getScreenRect());
 			mBounds.offset((int) xOffset, (int) yOffset);
 
 			mBounds.set(mBounds.left, mBounds.top, mBounds.left + scaleBarPicture.getWidth(),
