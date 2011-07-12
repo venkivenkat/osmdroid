@@ -39,6 +39,7 @@ import java.lang.reflect.Field;
 
 import org.osmdroid.DefaultResourceProxyImpl;
 import org.osmdroid.ResourceProxy;
+import org.osmdroid.api.IGeoPoint;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.util.constants.GeoConstants;
 import org.osmdroid.views.MapView;
@@ -192,9 +193,10 @@ public Paint getBarPaint() {
 		return barPaint;
 	}
 
-	public void setBarPaint(Paint pBarPaint) {
-		if (pBarPaint == null)
+	public void setBarPaint(final Paint pBarPaint) {
+		if (pBarPaint == null) {
 			throw new IllegalArgumentException("pBarPaint argument cannot be null");
+		}
 		barPaint = pBarPaint;
 	}
 
@@ -202,9 +204,10 @@ public Paint getBarPaint() {
 		return textPaint;
 	}
 
-	public void setTextPaint(Paint pTextPaint) {
-		if (pTextPaint == null)
+	public void setTextPaint(final Paint pTextPaint) {
+		if (pTextPaint == null) {
 			throw new IllegalArgumentException("pTextPaint argument cannot be null");
+		}
 		textPaint = pTextPainttion(;
 			
 			if (projection == null) {
@@ -230,7 +233,7 @@ anslateicture.getWidth() / 2 - 0.5final Projection projection = mapView.getProje
 				return;
 			}
 
-			final  - mapView.getHeight()));
+			final I - mapView.getHeight()));
 
 			c.save();
 			c.setMatrix(scaleBarMatrix); / 2);
