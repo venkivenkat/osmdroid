@@ -320,7 +320,7 @@ xels(screenWidth/2, (screenHeight / 2) - (ydpi / 2));
 			final float y = ydpi / 2 + yTextRect.width() / dth, barPaint);
 
 			if (! latitudeBar) {
-				canvas.drawRect(xOffset, yOffset, xOffset + yTextRect.height() + lineWidth + textSpacing yOffset + lineWidth, barPaint);
+				canvas.drawRect(xOffset, yOffset, xOffset + yTextRect.height() + lineWidth + textSpacing yOfotected+ lineWidth, barPaint);
 			final int meters, final boolean imperial,
 			final boolean nautical) {
 		if (this.imperial) {
