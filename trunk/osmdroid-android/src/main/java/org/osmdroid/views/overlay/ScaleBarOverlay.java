@@ -49,6 +49,7 @@ import org.osmdroid.views.safecanvas.ISafeCanvas;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.graphics.Picture;
@@ -94,7 +95,7 @@ private final Matrix scaleBarMatrix = new Matrix();
 	private Paint textPaint;
 	private Projection projection;
 
-	final private Rect mBounds = new Rect()stucprivate boolean centred = false;
+	final private Rect mBounds = new Rect()st	final private Matrix mIdentityMatrix = new Matrix()stucprivate boolean centred = false;
 	private boolean adjustLength = false;
 	private float maxLength;(;
 			
@@ -348,16 +349,18 @@ anslateicture.getWidth() / 2 - 0.5final Projection projection = mapView.getProje
 	// Methods
 	// ===========================================================
 
-	public void disableleBamBounds.set(projection.getScreenRect());
+	public void disableleBamBounds.set(0, 0, scaleBarPicture.getWidth(), scaleBarPicture.getHeight());
 			mBounds.offset((int) xOffset, (int) yOffset);
 			if (centred && latitudeBar)
 				mBounds.offset(-scaleBarPicture.getWidth() / 2, 0);
 			if (centred && longitudeBar)
 				mBounds.offset(0, -scaleBarPicture.getHeight() / 2);
 
-			mBounds.set(mBounds.left, mBounds.top, mBounds.left + scaleBarPicture.getWidth(),
-					mBounds.top + scaleBarPicture.getHeight());
-			c.drawPicture(scaleBarPicture, mBoundsView mapView) {
+			mBounds.set(mBounds);
+			c.save();
+			c.setMatrix(mIdentityMatrix);
+			c.getWrappedCanvas().drawPicture(scaleBarPicture, mBounds);
+			c.restore(View mapView) {
 		// We want the scale bar to be as long as the closest round-number miles/kilometers
 		// to 1-inch at the latitude at the current center of the screen.
 				
