@@ -359,6 +359,8 @@ anslateicture.getWidth() / 2 - 0.5final Projection projection = mapView.getProje
 			mBounds.set(mBounds);
 			c.save();
 			c.setMatrix(mIdentityMatrix);
+			// To fix offset issues in pre-honeycomb
+			c.translate(0, c.getHeight() - mapView.getHeight());
 			c.getWrappedCanvas().drawPicture(scaleBarPicture, mBounds);
 			c.restore(View mapView) {
 		// We want the scale bar to be as long as the closest round-number miles/kilometers
