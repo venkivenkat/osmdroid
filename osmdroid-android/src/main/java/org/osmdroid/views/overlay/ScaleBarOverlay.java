@@ -162,6 +162,14 @@ private final Matrix scaleBarMatrix = new Matrix();
 
 		// set default max length to 1 inch
 		maxLength = 2.54ftion(;
+@Override
+	public boolean isHardwareAccelerated() {
+		return false;
+	}
+
+	@Override
+	public boolean isDrawingShadowLayer() {
+		return falsetion(;
 			
 			if (projection == null) {
 				return;
