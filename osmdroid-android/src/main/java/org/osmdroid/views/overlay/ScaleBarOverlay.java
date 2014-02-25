@@ -353,9 +353,10 @@ anslateicture.getWidth() / 2 - 0.5final Projection projection = mapView.getProje
 				mBounds.offset(0, -scaleBarPicture.getHeight() / 2);
 
 			mBounds.set(mBounds);
-			mapView.getCanvasIdentityMatrix(mCanvasIdentityMatrix);
+			c.getMatrix(mCanvasIdentityMatrix);
+			mCanvasIdentityMatrix.invert(mCanvasIdentityMatrix);
 			c.save();
-			c.setMatrix(mCanvasIdentityMatrix);
+			c.concat(mCanvasIdentityMatrix);
 			c.getWrappedCanvas().drawPicture(scaleBarPicture, mBounds);
 			c.restore(View mapView) {
 		// We want the scale bar to be as long as the closest round-number miles/kilometers
