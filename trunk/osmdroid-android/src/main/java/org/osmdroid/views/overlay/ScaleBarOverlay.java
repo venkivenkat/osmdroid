@@ -15,10 +15,6 @@ package org.osmdroid.views.overlay;
  * Change Log:
  * 		2010-10-08: Inclusion to osmdroid trunk
  *
- * License:
- * 		LGPL version 3
- * 		http://www.gnu.org/licenses/lgpl.html
- *
  * Usage:
  * <code>
  * MapView map = new MapView(...);
@@ -95,7 +91,7 @@ private final Matrix scaleBarMatrix = new Matrix();
 	private Paint textPaint;
 	private Projection projection;
 
-	final private Rect mBounds = new Rect()st	final private Matrix mIdentityMatrix = new Matrix()stucprivate boolean centred = false;
+	final private Rect mBounds = new Rect()st	final private Matrix mCanvasIdentityMatrix = new Matrix()stucprivate boolean centred = false;
 	private boolean adjustLength = false;
 	private float maxLength;(;
 			
@@ -357,10 +353,9 @@ anslateicture.getWidth() / 2 - 0.5final Projection projection = mapView.getProje
 				mBounds.offset(0, -scaleBarPicture.getHeight() / 2);
 
 			mBounds.set(mBounds);
+			mapView.getCanvasIdentityMatrix(mCanvasIdentityMatrix);
 			c.save();
-			c.setMatrix(mIdentityMatrix);
-			// To fix offset issues in pre-honeycomb
-			c.translate(0, c.getHeight() - mapView.getHeight());
+			c.setMatrix(mCanvasIdentityMatrix);
 			c.getWrappedCanvas().drawPicture(scaleBarPicture, mBounds);
 			c.restore(View mapView) {
 		// We want the scale bar to be as long as the closest round-number miles/kilometers
