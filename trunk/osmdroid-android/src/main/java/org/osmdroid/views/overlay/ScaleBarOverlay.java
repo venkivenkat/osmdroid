@@ -40,19 +40,17 @@ import org.osmdroid.util.GeoPoint;
 import org.osmdroid.util.constants.GeoConstants;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.MapView.Projection;
-import org.osmdroid.views.safecanvas.ISafeCanvas;
 
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.graphics.Picture;
 import android.graphics.Rect;
 import android.view.WindowManager;
 
-public class ScaleBarOverlay extends SafeDrawOverlay implements GeoConstants {
+public class ScaleBarOverlay extends Overlay implements GeoConstants {
 
 	// ===========================================================
 	// Fields
@@ -91,7 +89,7 @@ private final Matrix scaleBarMatrix = new Matrix();
 	private Paint textPaint;
 	private Projection projection;
 
-	final private Rect mBounds = new Rect()st	final private Matrix mCanvasIdentityMatrix = new Matrix()stucprivate boolean centred = false;
+	final private Rect mBounds = new Rect()stucprivate boolean centred = false;
 	private boolean adjustLength = false;
 	private float maxLength;(;
 			
@@ -327,8 +325,7 @@ en/**
 			
 			GeoPoint center = projection.fromPixels((screenWidth / 2), screenHeight/2);
 
-			if (zoomLevel != lastZoomLevel || (int)(cenublic void drawSafe(final ISafeCanvas c, final MapView mapView, final boolean shadow) {
-
+			if (zoomLevel != lastZoomLevel || (int)(cenrotected void draw(Canvas c, MapView mapView, boolean shadow) {
 		if (shadow) {
 			return;
 		}i
@@ -361,10 +358,9 @@ anslateicture.getWidth() / 2 - 0.5final Projection projection = mapView.getProje
 				mBounds.offset(0, -scaleBarPicture.getHeight() / 2);
 
 			mBounds.set(mBounds);
-			mapView.getCanvasIdentityMatrix(mCanvasIdentityMatrix);
 			c.save();
-			c.setMatrix(mCanvasIdentityMatrix);
-			c.getWrappedCanvas().drawPicture(scaleBarPicture, mBounds);
+			mapView.invertCanvas(c);
+			c.drawPicture(scaleBarPicture, mBounds);
 			c.restore(View mapView) {
 		// We want the scale bar to be as long as the closest round-number miles/kilometers
 		// to 1-inch at the latitude at the current center of the screen.
